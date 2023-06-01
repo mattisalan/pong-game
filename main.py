@@ -5,6 +5,8 @@ from bat import Bat
 
 def main():
     pygame.init()
+    clock = pygame.time.Clock()
+    
 
     # Game window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -30,10 +32,11 @@ def main():
 
         # RENDER GRAPHICS
         screen.fill(BG_COLOR)
-
         player_bats.draw(screen)
 
         pygame.display.flip() # Refresh screen
+
+        clock.tick(60) # Frame rate
 
 if __name__ == "__main__":
     main()
