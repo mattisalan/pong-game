@@ -13,4 +13,4 @@ BAT_SPEED = 5
 
 # BALL
 BALL_WIDTH = 10
-BALL_SPEED =  [2, 2]
+BALL_SPEED =  [3, -3]

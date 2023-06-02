@@ -53,10 +53,16 @@ def main():
 
         # GAME LOGIC
 
-        # RENDER GRAPHICS
-        screen.fill(BG_COLOR)
         player_bats.update()
         ball.update()
+
+        ball.check_collisions(player1_bat, player2_bat)
+
+        if ball.round_over():
+            ball.reinit()
+
+        # RENDER GRAPHICS
+        screen.fill(BG_COLOR)
         player_bats.draw(screen)
         ball.draw(screen)
 
