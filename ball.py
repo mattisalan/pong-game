@@ -1,5 +1,5 @@
-from typing import Any
 import pygame
+import random
 from constants import *
 
 class Ball(pygame.sprite.Sprite):
@@ -11,10 +11,19 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.Surface([BALL_WIDTH, BALL_WIDTH])
         self.image.fill(GREY)
         self.rect = self.image.get_rect()
-        self.rect.center = [SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2]
+        
+        self.set_position_and_direction()
 
-        # List of the speed in the x-direction and y-direction
-        self.speed = BALL_SPEED.copy()
+    def set_position_and_direction(self):
+        # Coordinates for center
+        x = SCREEN_WIDTH / 2
+        y = random.randint(2 * BALL_WIDTH, SCREEN_HEIGHT - 2 * BALL_WIDTH)
+        self.rect.center = [x, y]
+
+        # Random direction
+        x_speed = BALL_SPEED * random.choice((-1,1))
+        y_speed = BALL_SPEED * random.choice((-1,1))
+        self.speed = [x_speed, y_speed]
 
     def change_x_speed(self):
         self.speed[0] = -1 * self.speed[0]
@@ -49,8 +58,7 @@ class Ball(pygame.sprite.Sprite):
         return False
 
     def reinit(self):
-        self.rect.center = [SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2]
-        self.speed = BALL_SPEED.copy()
+        self.set_position_and_direction()
 
     def update(self):
         self.rect.move_ip(self.speed)
