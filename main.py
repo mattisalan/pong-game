@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from constants import *
 from bat import Bat
+from ball import Ball
 
 def main():
     pygame.init()
@@ -14,6 +15,7 @@ def main():
     # Create game objects
     player1_bat = Bat(isPlayer1=True)
     player2_bat = Bat(isPlayer1=False)
+    ball = Ball()
 
     # Sprite groups
     player_bats = pygame.sprite.Group()
@@ -37,7 +39,7 @@ def main():
                     player2_bat.move_up()
                 if event.key == pygame.K_DOWN:
                     player2_bat.move_down()
-                    
+
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     player1_bat.move_down()
@@ -54,7 +56,9 @@ def main():
         # RENDER GRAPHICS
         screen.fill(BG_COLOR)
         player_bats.update()
+        ball.update()
         player_bats.draw(screen)
+        ball.draw(screen)
 
         pygame.display.flip() # Refresh screen
 
