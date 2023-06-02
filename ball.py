@@ -47,12 +47,12 @@ class Ball(pygame.sprite.Sprite):
             elif abs(self.rect.top - player1_bat.rect.bottom) < 10 and self.speed[1] < 0:
                 self.change_y_speed()
 
-    def round_over(self):
+    def round_over(self, player1, player2):
         if self.rect.right >= SCREEN_WIDTH:
-            print("player1 score")
+            player1.score += 1
             return True
         if self.rect.left <= 0:
-            print("player2 score")
+            player2.score +=1
             return True
         
         return False

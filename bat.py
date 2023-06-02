@@ -1,6 +1,6 @@
-from typing import Any
 import pygame
 from constants import *
+
 
 class Bat(pygame.sprite.Sprite):
 
@@ -16,6 +16,7 @@ class Bat(pygame.sprite.Sprite):
             self.rect.center = (SCREEN_WIDTH - BAT_WIDTH, SCREEN_HEIGHT / 2)
 
         self.speed = 0
+        self.score = 0
 
     def move_up(self):
         self.speed -= BAT_SPEED

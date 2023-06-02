@@ -1,8 +1,18 @@
 import pygame
 from pygame.locals import *
+
 from constants import *
 from bat import Bat
 from ball import Ball
+
+
+def update_scores(player1_score, player2_score, screen):
+    font = pygame.font.SysFont(FONT, FONTSIZE)
+    text = font.render(f"{player1_score} - {player2_score}", True, GREY)
+    text_rect = text.get_rect(center=(SCREEN_WIDTH / 2, 50))
+
+    screen.blit(text, text_rect)
+
 
 def main():
     pygame.init()
@@ -52,17 +62,17 @@ def main():
             
 
         # GAME LOGIC
-
         player_bats.update()
         ball.update()
 
         ball.check_collisions(player1_bat, player2_bat)
 
-        if ball.round_over():
+        if ball.round_over(player1_bat, player2_bat):
             ball.reinit()
 
         # RENDER GRAPHICS
         screen.fill(BG_COLOR)
+        update_scores(player1_bat.score, player2_bat.score, screen)
         player_bats.draw(screen)
         ball.draw(screen)
 
