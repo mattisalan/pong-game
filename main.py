@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from pygame.locals import *
 
@@ -17,7 +19,7 @@ def update_scores(player1_score, player2_score, screen):
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    
+    prev_time = time.time()
 
     # Game window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -33,7 +35,12 @@ def main():
 
     # GAME LOOP
     while True:
-        
+
+        # Delta time
+        time_now = time.time()
+        dt = time_now - prev_time
+        prev_time = time_now
+
         # EVENTS / PLAYER INPUTS
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -42,16 +49,16 @@ def main():
             
         keys = pygame.key.get_pressed()
         if keys[K_w]:
-            player1_bat.move_up()
+            player1_bat.move_up(dt)
         if keys[K_s]:
-            player1_bat.move_down()
+            player1_bat.move_down(dt)
         if keys[K_UP]:
-            player2_bat.move_up()
+            player2_bat.move_up(dt)
         if keys[K_DOWN]:
-            player2_bat.move_down()
+            player2_bat.move_down(dt)
 
         # GAME LOGIC
-        ball.update()
+        ball.update(dt)
 
         ball.check_collisions(player1_bat, player2_bat)
 
@@ -66,7 +73,7 @@ def main():
 
         pygame.display.flip() # Refresh screen
 
-        clock.tick(60) # Frame rate
+        clock.tick(FPS_LIMIT)
 
 if __name__ == "__main__":
     main()

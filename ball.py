@@ -13,11 +13,17 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         self.set_position_and_direction()
+        
+        self.pos_x = self.rect.x
+        self.pos_y = self.rect.y
 
     def set_position_and_direction(self):
         # Coordinates for center
         x = SCREEN_WIDTH / 2
         y = random.randint(2 * BALL_WIDTH, SCREEN_HEIGHT - 2 * BALL_WIDTH)
+        self.pos_x = x
+        self.pos_y = y
+        
         self.rect.center = [x, y]
 
         # Random direction
@@ -60,8 +66,11 @@ class Ball(pygame.sprite.Sprite):
     def reinit(self):
         self.set_position_and_direction()
 
-    def update(self):
-        self.rect.move_ip(self.speed)
+    def update(self, dt):
+        self.pos_x += self.speed[0] * dt
+        self.pos_y += self.speed[1] * dt
+        self.rect.x = round(self.pos_x)
+        self.rect.y = round(self.pos_y)
 
         if self.rect.top <= 0 or self.rect.bottom >= SCREEN_HEIGHT:
             self.change_y_speed()
