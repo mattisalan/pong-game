@@ -33,36 +33,24 @@ def main():
 
     # GAME LOOP
     while True:
-
+        
         # EVENTS / PLAYER INPUTS
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 raise SystemExit
             
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
-                    player1_bat.move_up()
-                if event.key == pygame.K_s:
-                    player1_bat.move_down()
-                if event.key == pygame.K_UP:
-                    player2_bat.move_up()
-                if event.key == pygame.K_DOWN:
-                    player2_bat.move_down()
-
-            elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
-                    player1_bat.move_down()
-                if event.key == pygame.K_s:
-                    player1_bat.move_up()
-                if event.key == pygame.K_UP:
-                    player2_bat.move_down()
-                if event.key == pygame.K_DOWN:
-                    player2_bat.move_up()
-            
+        keys = pygame.key.get_pressed()
+        if keys[K_w]:
+            player1_bat.move_up()
+        if keys[K_s]:
+            player1_bat.move_down()
+        if keys[K_UP]:
+            player2_bat.move_up()
+        if keys[K_DOWN]:
+            player2_bat.move_down()
 
         # GAME LOGIC
-        player_bats.update()
         ball.update()
 
         ball.check_collisions(player1_bat, player2_bat)

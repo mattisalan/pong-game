@@ -19,17 +19,14 @@ class Bat(pygame.sprite.Sprite):
         self.score = 0
 
     def move_up(self):
-        self.speed -= BAT_SPEED
+        if self.rect.top > 0:
+            self.rect.y -= BAT_SPEED
+        else:
+            self.rect.top = 0
 
     def move_down(self):
-        self.speed += BAT_SPEED
-
-    def update(self):
-        self.rect.move_ip([0, self.speed])
-
-        # Do not let the bat go out of screen
-        if self.rect.top < 0:
-            self.rect.top = 0
-        elif self.rect.bottom > SCREEN_HEIGHT:
+        if self.rect.bottom < SCREEN_HEIGHT:
+            self.rect.y += BAT_SPEED
+        else:
             self.rect.bottom = SCREEN_HEIGHT
         
